@@ -2,6 +2,22 @@
 
 SCRIPT_NAME="$(basename "$0")"
 
+show_help() {
+    echo "Dostepne opcje:"
+    echo ""
+    echo "  --date"
+    echo "      Wyswietla dzisiejsza date."
+    echo ""
+    echo "  --logs"
+    echo "      Tworzy domyslnie 100 plikow logx.txt."
+    echo ""
+    echo "  --logs LICZBA"
+    echo "      Tworzy podana liczbe plikow logx.txt."
+    echo ""
+    echo "  --help"
+    echo "      Wyswietla pomoc."
+}
+
 case "$1" in
     --date)
         date
@@ -25,10 +41,12 @@ case "$1" in
         echo "Utworzono $count plikow log."
         ;;
 
+    --help)
+        show_help
+        ;;
+
     *)
-        echo "Uzyj:"
-        echo "./skrypt.sh --date"
-        echo "./skrypt.sh --logs"
-        echo "./skrypt.sh --logs 30"
+        echo "Nieznana opcja albo brak opcji."
+        echo "Uzyj: ./skrypt.sh --help"
         ;;
 esac
