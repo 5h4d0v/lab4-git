@@ -8,7 +8,13 @@ case "$1" in
         ;;
 
     --logs)
-        for i in $(seq 1 100); do
+        if [[ -z "$2" ]]; then
+            count=100
+        else
+            count="$2"
+        fi
+
+        for i in $(seq 1 "$count"); do
             filename="log${i}.txt"
 
             echo "Nazwa pliku: $filename" > "$filename"
@@ -16,12 +22,13 @@ case "$1" in
             echo "Data utworzenia: $(date)" >> "$filename"
         done
 
-        echo "Utworzono 100 plikow log."
+        echo "Utworzono $count plikow log."
         ;;
 
     *)
         echo "Uzyj:"
         echo "./skrypt.sh --date"
         echo "./skrypt.sh --logs"
+        echo "./skrypt.sh --logs 30"
         ;;
 esac
