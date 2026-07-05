@@ -17,6 +17,9 @@ show_help() {
     echo "  --logs LICZBA, -l LICZBA"
     echo "      Tworzy podana liczbe plikow logx.txt."
     echo ""
+    echo "  --error LICZBA, -e LICZBA"
+    echo "      Tworzy katalogi errorx oraz pliki errorx/errorx.txt."
+    echo ""
     echo "  --init"
     echo "      Klonuje repozytorium i dodaje jego katalog do PATH."
     echo ""
@@ -24,12 +27,16 @@ show_help() {
     echo "      Wyswietla pomoc."
 }
 
-create_logs() {
+get_count() {
     if [[ -z "$1" ]]; then
-        count=100
+        echo 100
     else
-        count="$1"
+        echo "$1"
     fi
+}
+
+create_logs() {
+    count="$(get_count "$1")"
 
     for i in $(seq 1 "$count"); do
         filename="log${i}.txt"
@@ -40,6 +47,24 @@ create_logs() {
     done
 
     echo "Utworzono $count plikow log."
+}
+
+create_errors() {
+    count="$(get_count "$1")"
+
+    for i in $(seq 1 "$count"); do
+        dirname="error${i}"
+        filename="${dirname}/${dirname}.txt"
+
+        mkdir -p "$dirname"
+
+        echo "Nazwa pliku: ${dirname}.txt" > "$filename"
+        echo "Katalog: $dirname" >> "$filename"
+        echo "Utworzony przez skrypt: $SCRIPT_NAME" >> "$filename"
+        echo "Data utworzenia: $(date)" >> "$filename"
+    done
+
+    echo "Utworzono $count katalogow error z plikami."
 }
 
 init_repo() {
@@ -75,6 +100,10 @@ case "$1" in
 
     --logs|-l)
         create_logs "$2"
+        ;;
+
+    --error|-e)
+        create_errors "$2"
         ;;
 
     --init)
