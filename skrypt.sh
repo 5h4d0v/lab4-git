@@ -5,25 +5,25 @@ SCRIPT_NAME="$(basename "$0")"
 show_help() {
     echo "Dostepne opcje:"
     echo ""
-    echo "  --date"
+    echo "  --date, -d"
     echo "      Wyswietla dzisiejsza date."
     echo ""
-    echo "  --logs"
+    echo "  --logs, -l"
     echo "      Tworzy domyslnie 100 plikow logx.txt."
     echo ""
-    echo "  --logs LICZBA"
+    echo "  --logs LICZBA, -l LICZBA"
     echo "      Tworzy podana liczbe plikow logx.txt."
     echo ""
-    echo "  --help"
+    echo "  --help, -h"
     echo "      Wyswietla pomoc."
 }
 
 case "$1" in
-    --date)
+    --date|-d)
         date
         ;;
 
-    --logs)
+    --logs|-l)
         if [[ -z "$2" ]]; then
             count=100
         else
@@ -41,7 +41,7 @@ case "$1" in
         echo "Utworzono $count plikow log."
         ;;
 
-    --help)
+    --help|-h)
         show_help
         ;;
 
